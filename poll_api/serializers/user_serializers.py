@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from poll_api.models import User
 from poll_api.serializers.poll_serializers import PollListSerializer, PollDetailSerializer
 
@@ -8,7 +9,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'polls']
+        fields = ['id', 'username', 'email', 'polls']
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -16,4 +17,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'polls']
+        fields = ['id', 'username', 'polls']

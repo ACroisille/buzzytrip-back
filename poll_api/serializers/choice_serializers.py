@@ -16,5 +16,5 @@ class ChoiceDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Choice
-        fields = ['id', 'name', 'description', 'votes']
+        fields = ['id', 'name', 'description', 'participant', 'votes']
 

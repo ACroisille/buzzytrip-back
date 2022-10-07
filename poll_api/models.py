@@ -1,8 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-class User(models.Model):
-    name = models.fields.CharField(max_length=100)
+class User(AbstractUser):
     polls = models.ManyToManyField('Poll', through='Participant', blank=True)
 
 
