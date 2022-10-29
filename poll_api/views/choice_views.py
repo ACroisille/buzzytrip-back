@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from poll_api.models import Choice
@@ -5,6 +6,8 @@ from poll_api.serializers import ChoiceListSerializer, ChoiceDetailSerializer
 
 
 class ChoiceViewSet(ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+
     serializer_class = ChoiceListSerializer
     detail_serializer_class = ChoiceDetailSerializer
 
