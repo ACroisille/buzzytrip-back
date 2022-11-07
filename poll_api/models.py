@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -7,6 +8,7 @@ class User(AbstractUser):
 
 
 class Poll(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
     created_by = models.ForeignKey(User, related_name='created_by', on_delete=models.CASCADE)
