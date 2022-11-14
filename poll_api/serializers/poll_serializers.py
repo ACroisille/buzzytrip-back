@@ -14,6 +14,7 @@ class PollListSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         pseudo = validated_data.pop('pseudo', None)
         poll = Poll.objects.create(**validated_data)
+        pseudo = pseudo if pseudo else poll.created_by.username
         Participant.objects.create(poll=poll, user=poll.created_by, pseudo=pseudo)
 
         return poll

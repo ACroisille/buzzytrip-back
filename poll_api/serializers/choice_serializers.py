@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from poll_api.models import Choice
+from poll_api.serializers.vote_serializers import VoteListSerializer
 
 
 class ChoiceListSerializer(serializers.ModelSerializer):
+    votes = VoteListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Choice
         fields = ['id', 'name', 'description', 'participant', 'votes']
-        read_only_fields = ['votes']
 
 
 class ChoiceDetailSerializer(serializers.ModelSerializer):
