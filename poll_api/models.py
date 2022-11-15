@@ -10,7 +10,7 @@ class User(AbstractUser):
     polls = models.ManyToManyField('Poll', through='Participant', blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
 
@@ -35,6 +35,7 @@ class Participant(models.Model):
 class Choice(models.Model):
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
+    link = models.URLField(max_length=250, null=True)
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='choices')
 
 
