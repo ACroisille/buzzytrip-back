@@ -2,9 +2,20 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from poll_api.authentication.custom_user_manager import CustomUserManager
+
 
 class User(AbstractUser):
+    email = models.EmailField(max_length=255, unique=True)
     polls = models.ManyToManyField('Poll', through='Participant', blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
 
 
 class Poll(models.Model):
