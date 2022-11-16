@@ -6,6 +6,9 @@ from poll_api.serializers import VoteListSerializer, VoteDetailSerializer
 
 
 class VoteViewSet(ModelViewSet):
+    """
+    Vote endpoint
+    """
     permission_classes = (IsAuthenticated,)
 
     serializer_class = VoteListSerializer

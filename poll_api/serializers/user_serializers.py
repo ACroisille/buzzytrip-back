@@ -4,6 +4,9 @@ from poll_api.models import User
 
 
 class UserListSerializer(serializers.ModelSerializer):
+    """
+    /user serializer
+    """
 
     class Meta:
         model = User
@@ -11,6 +14,9 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
+    """
+    /user/id serializer
+    """
 
     class Meta:
         model = User

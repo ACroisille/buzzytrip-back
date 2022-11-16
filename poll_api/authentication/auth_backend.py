@@ -4,6 +4,12 @@ from django.contrib.auth.backends import ModelBackend
 
 class EmailBackend(ModelBackend):
     def authenticate(self, request, **kwargs):
+        """
+        Allow user to authenticate with email
+        :param request:
+        :param kwargs:
+        :return: User
+        """
         user_model = get_user_model()
         try:
             email = kwargs.get('email', None)

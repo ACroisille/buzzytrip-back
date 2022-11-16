@@ -5,6 +5,9 @@ from poll_api.models import Poll, Participant
 
 
 class PollListSerializer(serializers.ModelSerializer):
+    """
+    /poll serializer
+    """
     pseudo = CharField(write_only=True, allow_null=True)
 
     class Meta:
@@ -12,6 +15,11 @@ class PollListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'participants', 'created_by', 'pseudo']
 
     def create(self, validated_data):
+        """
+        Poll object creation
+        :param validated_data:
+        :return: Poll
+        """
         pseudo = validated_data.pop('pseudo', None)
         poll = Poll.objects.create(**validated_data)
         pseudo = pseudo if pseudo else poll.created_by.username
@@ -21,6 +29,9 @@ class PollListSerializer(serializers.ModelSerializer):
 
 
 class PollDetailSerializer(serializers.ModelSerializer):
+    """
+    /poll/id serializer
+    """
 
     class Meta:
         model = Poll

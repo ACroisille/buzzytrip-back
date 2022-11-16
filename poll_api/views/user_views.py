@@ -6,6 +6,9 @@ from poll_api.serializers import UserListSerializer, UserDetailSerializer
 
 
 class UserViewSet(ModelViewSet):
+    """
+    User endpoint
+    """
     permission_classes = (IsAuthenticated,)
 
     serializer_class = UserListSerializer

@@ -6,6 +6,9 @@ from poll_api.authentication.custom_user_manager import CustomUserManager
 
 
 class User(AbstractUser):
+    """
+    User model (extends Django user)
+    """
     email = models.EmailField(max_length=255, unique=True)
     polls = models.ManyToManyField('Poll', through='Participant', blank=True)
 
@@ -19,6 +22,9 @@ class User(AbstractUser):
 
 
 class Poll(models.Model):
+    """
+    Poll model
+    """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
@@ -27,12 +33,18 @@ class Poll(models.Model):
 
 
 class Participant(models.Model):
+    """
+    Participant model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     pseudo = models.fields.CharField(max_length=100, null=True)
 
 
 class Choice(models.Model):
+    """
+    Choice model
+    """
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
     link = models.URLField(max_length=250, null=True)
@@ -40,6 +52,9 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
+    """
+    Vote model
+    """
     is_pos = models.fields.BooleanField()
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='votes')
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')

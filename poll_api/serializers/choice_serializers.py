@@ -4,6 +4,9 @@ from poll_api.serializers.vote_serializers import VoteListSerializer
 
 
 class ChoiceListSerializer(serializers.ModelSerializer):
+    """
+    /choice serializer
+    """
     votes = VoteListSerializer(many=True, read_only=True)
 
     class Meta:
@@ -12,6 +15,9 @@ class ChoiceListSerializer(serializers.ModelSerializer):
 
 
 class ChoiceDetailSerializer(serializers.ModelSerializer):
+    """
+    /choice/id serializer
+    """
 
     class Meta:
         model = Choice

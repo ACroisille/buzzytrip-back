@@ -6,6 +6,9 @@ from poll_api.serializers import ChoiceListSerializer, ChoiceDetailSerializer
 
 
 class ChoiceViewSet(ModelViewSet):
+    """
+    Choice endpoint
+    """
     permission_classes = (IsAuthenticated,)
 
     serializer_class = ChoiceListSerializer
