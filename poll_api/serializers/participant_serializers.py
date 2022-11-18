@@ -17,13 +17,15 @@ class ParticipantListSerializer(serializers.ModelSerializer):
         :param validated_data:
         :return: Participant
         """
-        print(validated_data)
-        pseudo = validated_data.get('pseudo')
-        pseudo = pseudo if pseudo else validated_data.get('user').username
-        participant = Participant.objects.create(user=validated_data.get('user'), poll=validated_data.get('poll'),
-                                                 pseudo=pseudo)
-
-        return participant
+        participants = Participant.objects.filter(user=validated_data.get('user'), poll=validated_data.get('poll'))
+        if len(participants) == 0:
+            pseudo = validated_data.get('pseudo')
+            pseudo = pseudo if pseudo else validated_data.get('user').username
+            participant = Participant.objects.create(user=validated_data.get('user'), poll=validated_data.get('poll'),
+                                                     pseudo=pseudo)
+            return participant
+        else:
+            raise serializers.ValidationError(detail="Participant already exists")
 
 
 class ParticipantDetailSerializer(serializers.ModelSerializer):
