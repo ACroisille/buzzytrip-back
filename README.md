@@ -1,2 +1,2 @@
-# polltrip-back
-Django REST Framework API for polltrip
+# buzzytrip-back
+Django REST Framework API for buzzytrip

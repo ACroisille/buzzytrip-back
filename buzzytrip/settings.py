@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
 
-ROOT_URLCONF = "polltrip.urls"
+ROOT_URLCONF = "buzzytrip.urls"
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "polltrip.wsgi.application"
+WSGI_APPLICATION = "buzzytrip.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
