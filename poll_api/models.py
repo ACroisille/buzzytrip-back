@@ -28,6 +28,11 @@ class Poll(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
+
+    start_date = models.fields.DateField(null=True)
+    end_date = models.fields.DateField(null=True)
+    closing_time = models.fields.DateTimeField(null=True)
+
     created_by = models.ForeignKey(User, related_name='created_by', on_delete=models.CASCADE)
     participants = models.ManyToManyField(User, through='Participant', blank=True)
 

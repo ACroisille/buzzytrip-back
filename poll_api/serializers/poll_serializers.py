@@ -12,7 +12,8 @@ class PollListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ['id', 'name', 'description', 'participants', 'created_by', 'pseudo']
+        fields = ['id', 'name', 'description', 'start_date', 'end_date', 'closing_time', 'participants', 'created_by',
+                  'pseudo']
 
     def create(self, validated_data):
         """
@@ -25,6 +26,8 @@ class PollListSerializer(serializers.ModelSerializer):
         pseudo = pseudo if pseudo else poll.created_by.username
         Participant.objects.create(poll=poll, user=poll.created_by, pseudo=pseudo)
 
+        # TODO : Add constraint start_date > end_date
+
         return poll
 
 
@@ -35,4 +38,4 @@ class PollDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ['id', 'name', 'description', 'participants', 'created_by']
+        fields = ['id', 'name', 'description', 'start_date', 'end_date', 'closing_time', 'participants', 'created_by']
