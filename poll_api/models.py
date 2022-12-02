@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -33,8 +35,10 @@ class Poll(models.Model):
     end_date = models.fields.DateField(null=True)
     closing_time = models.fields.DateTimeField(null=True)
 
-    created_by = models.ForeignKey(User, related_name='created_by', on_delete=models.CASCADE)
-    participants = models.ManyToManyField(User, through='Participant', blank=True)
+    created_by = models.ForeignKey(
+        User, related_name='created_by', on_delete=models.CASCADE)
+    participants = models.ManyToManyField(
+        User, through='Participant', blank=True)
 
 
 class Participant(models.Model):
@@ -50,10 +54,19 @@ class Choice(models.Model):
     """
     Choice model
     """
+    class Currency(models.TextChoices):
+        EU = 'eu'
+        USD = 'usd'
+
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
     link = models.URLField(max_length=250, null=True)
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='choices')
+    price = models.fields.FloatField(default=0)
+    currency = models.CharField(
+        choices=Currency.choices, default=Currency.EU, max_length=3)
+    creation_time = models.fields.DateTimeField(default=datetime.now())
+    participant = models.ForeignKey(
+        Participant, on_delete=models.CASCADE, related_name='choices')
 
 
 class Vote(models.Model):
@@ -61,5 +74,7 @@ class Vote(models.Model):
     Vote model
     """
     is_pos = models.fields.BooleanField()
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='votes')
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')
+    participant = models.ForeignKey(
+        Participant, on_delete=models.CASCADE, related_name='votes')
+    choice = models.ForeignKey(
+        Choice, on_delete=models.CASCADE, related_name='votes')
