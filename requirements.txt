@@ -2,4 +2,5 @@ Django~=4.1.1
 djangorestframework
 django-cors-headers
 djangorestframework_simplejwt
+django-environ
 psycopg2
