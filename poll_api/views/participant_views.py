@@ -1,7 +1,9 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
-from poll_api.models import Participant
+from poll_api.models import Participant, Vote
 from poll_api.serializers import ParticipantListSerializer, ParticipantDetailSerializer
 
 
@@ -9,7 +11,7 @@ class ParticipantViewSet(ModelViewSet):
     """
     Participant endpoint
     """
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     serializer_class = ParticipantListSerializer
     detail_serializer_class = ParticipantDetailSerializer
@@ -29,3 +31,15 @@ class ParticipantViewSet(ModelViewSet):
         if self.action == 'retrieve':
             return self.detail_serializer_class
         return super().get_serializer_class()
+
+    @action(detail=True, url_path='get_vote_count', url_name='get_vote_count')
+    def get_vote_count(self, request, pk=None):
+        participant = self.get_object()
+        votes = Vote.objects.filter(participant=participant)
+
+        response = {
+            'participant_id': participant.id,
+            'vote_count': len(votes)
+        }
+
+        return Response(response)
