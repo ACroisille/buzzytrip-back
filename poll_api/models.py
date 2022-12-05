@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 import uuid
 from django.db import models
@@ -64,7 +64,7 @@ class Choice(models.Model):
     price = models.fields.FloatField(default=0)
     currency = models.CharField(
         choices=Currency.choices, default=Currency.EU, max_length=3)
-    creation_time = models.fields.DateTimeField(default=datetime.now())
+    creation_time = models.fields.DateTimeField(default=timezone.now)
     participant = models.ForeignKey(
         Participant, on_delete=models.CASCADE, related_name='choices')
 

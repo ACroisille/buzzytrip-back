@@ -1,9 +1,17 @@
+from django.db.models import F
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
 
 from poll_api.models import Choice
 from poll_api.serializers import ChoiceListSerializer, ChoiceDetailSerializer
+
+sort_mapping = {
+    'creation_time_asc': F('creation_time').asc(),
+    'creation_time_desc': F('creation_time').desc(),
+    'price_asc': F('price').asc(),
+    'price_desc': F('price').desc(),
+}
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -24,10 +32,15 @@ class ChoiceViewSet(ModelViewSet):
 
     def get_queryset(self):
         poll_id = self.request.query_params.get('poll_id')
-        if poll_id:
-            return Choice.objects.filter(participant__poll__id=poll_id)
+        sort = self.request.query_params.get('sort')
 
-        return Choice.objects.all()
+        queryset = Choice.objects.all()
+        if poll_id:
+            queryset = Choice.objects.filter(participant__poll__id=poll_id)
+        if sort:
+            queryset = queryset.order_by(sort_mapping[sort])
+
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

@@ -11,7 +11,7 @@ class ParticipantViewSet(ModelViewSet):
     """
     Participant endpoint
     """
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     serializer_class = ParticipantListSerializer
     detail_serializer_class = ParticipantDetailSerializer
