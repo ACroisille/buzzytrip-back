@@ -60,7 +60,7 @@ class Choice(models.Model):
 
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
-    link = models.URLField(max_length=250, null=True)
+    link = models.URLField(max_length=500, null=True)
     price = models.fields.FloatField(default=0)
     currency = models.CharField(
         choices=Currency.choices, default=Currency.EU, max_length=3)
