@@ -27,10 +27,18 @@ class Poll(models.Model):
     """
     Poll model
     """
+    class Status(models.TextChoices):
+        ACTIVE = 'active'
+        CLOSED = 'closed'
+        LOCKED = 'locked'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.fields.CharField(max_length=100)
     description = models.fields.TextField(null=True)
+    status = models.CharField(choices=Status.choices,
+                              default=Status.ACTIVE, max_length=10)
 
+    creation_time = models.fields.DateTimeField(default=timezone.now)
     start_date = models.fields.DateField(null=True)
     end_date = models.fields.DateField(null=True)
     closing_time = models.fields.DateTimeField(null=True)

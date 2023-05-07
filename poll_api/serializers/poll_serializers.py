@@ -12,8 +12,8 @@ class PollListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ['id', 'name', 'description', 'start_date', 'end_date', 'closing_time', 'participants', 'created_by',
-                  'pseudo']
+        fields = ['id', 'name', 'description', 'status', 'creation_time', 'start_date',
+                  'end_date', 'closing_time', 'participants', 'created_by', 'pseudo']
 
     def validate(self, data):
         """
@@ -22,7 +22,8 @@ class PollListSerializer(serializers.ModelSerializer):
         start_date = data.get('start_date')
         end_date = data.get('end_date')
         if start_date and end_date and start_date > end_date:
-            raise serializers.ValidationError('Finish must occur after start')
+            raise serializers.ValidationError(
+                'end_date must occur after start_date')
 
         return data
 
@@ -48,5 +49,5 @@ class PollDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ['id', 'name', 'description', 'start_date',
+        fields = ['id', 'name', 'description', 'status', 'creation_time', 'start_date',
                   'end_date', 'closing_time', 'participants', 'created_by']
